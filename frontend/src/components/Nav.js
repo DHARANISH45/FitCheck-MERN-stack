@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useMemo } from "react";
 import logo from "../images/logo.png";
 import { IoMenu } from "react-icons/io5";
 import { IoMdContact } from "react-icons/io";
@@ -12,10 +12,13 @@ import gsap from "gsap";
 const Home = () => {
   const [toggleMenu, setToggleMenu] = useState(false);
   const [showLogout, setShowLogout] = useState(false);
-  const listRefs = [
+
+  // Memoizing the listRefs array so it doesn't change on every render
+  const listRefs = useMemo(() => [
     useRef(null), useRef(null), useRef(null), useRef(null), 
     useRef(null), useRef(null), useRef(null)
-  ];
+  ], []);
+
   const inputRef = useRef(null);
   const navigate = useNavigate();
 
@@ -25,7 +28,7 @@ const Home = () => {
       t1.from(ref.current, { x: -500, opacity: 0, duration: 0.2, ease: "power2.out", delay: index * 0.2 });
     });
     t1.from(inputRef.current, { y: -100, opacity: 0, scale: 0.5, duration: 0.5, ease: "power2.in" });
-  }, [listRefs]);  // Added listRefs as a dependency
+  }, [listRefs]); // listRefs is now memoized, so it won't trigger effect on each render
 
   const handleLogout = () => {
     setShowLogout(false);
