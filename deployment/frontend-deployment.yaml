@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-deployment
+  labels:
+    app: fitcheck-frontend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: fitcheck-frontend
+  template:
+    metadata:
+      labels:
+        app: fitcheck-frontend
+    spec:
+      containers:
+        - name: fitcheck-frontend
+          image: your-docker-registry-url/fitcheck-frontend:latest
+          ports:
+            - containerPort: 80

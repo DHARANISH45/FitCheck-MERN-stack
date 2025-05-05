@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-deployment
+  labels:
+    app: fitcheck-backend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: fitcheck-backend
+  template:
+    metadata:
+      labels:
+        app: fitcheck-backend
+    spec:
+      containers:
+        - name: fitcheck-backend
+          image: your-docker-registry-url/fitcheck-backend:latest
+          ports:
+            - containerPort: 5000
+          env:
+            - name: MONGO_URI
+              value: "mongodb+srv://dharanish:slkd2468@dharanish.pw0d3dz.mongodb.net/?retryWrites=true&w=majority&appName=dharanish"
+            - name: PORT
+              value: "5000"
+            - name: JWT_SECRET
+              value: "8b2f0e303f45db52877d8eab1b1b9a89d99d4d64e7026c4a9d3b5f0070c39c62"
