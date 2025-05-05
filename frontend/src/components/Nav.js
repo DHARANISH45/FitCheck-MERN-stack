@@ -12,7 +12,10 @@ import gsap from "gsap";
 const Home = () => {
   const [toggleMenu, setToggleMenu] = useState(false);
   const [showLogout, setShowLogout] = useState(false);
-  const listRefs = [useRef(null), useRef(null),useRef(null), useRef(null),useRef(null),useRef(null), useRef(null)];
+  const listRefs = [
+    useRef(null), useRef(null), useRef(null), useRef(null), 
+    useRef(null), useRef(null), useRef(null)
+  ];
   const inputRef = useRef(null);
   const navigate = useNavigate();
 
@@ -22,7 +25,7 @@ const Home = () => {
       t1.from(ref.current, { x: -500, opacity: 0, duration: 0.2, ease: "power2.out", delay: index * 0.2 });
     });
     t1.from(inputRef.current, { y: -100, opacity: 0, scale: 0.5, duration: 0.5, ease: "power2.in" });
-  }, []);
+  }, [listRefs]);  // Added listRefs as a dependency
 
   const handleLogout = () => {
     setShowLogout(false);
