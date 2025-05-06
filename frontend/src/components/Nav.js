@@ -46,6 +46,8 @@ const Home = () => {
       duration: 0.5,
       ease: "power2.in",
     });
+
+    return () => t1.kill(); // Cleanup
   }, [listRefs]);
 
   const handleLogout = () => {
@@ -57,6 +59,7 @@ const Home = () => {
     <>
       <div className="flex sticky top-0 items-center justify-between md:px-16 md:py-5 px-2 py-3 w-full bg-black z-10 border-b">
         <img className="md:h-16 md:w-32 h-16 w-28" src={logo} alt="loading" />
+
         <nav className="hidden md:block">
           <ul className="flex gap-6">
             <li ref={listRefs[0]} className="nav-link">
@@ -87,25 +90,25 @@ const Home = () => {
           <nav className="md:hidden block">
             <ul className="flex flex-col fixed h-52 overflow-auto w-full bg-black top-20 left-0 p-5 justify-between">
               <li className="nav-link">
-                <Link to="/home" className="flex items-center space-x-10">
+                <Link to="/home" onClick={() => setToggleMenu(false)} className="flex items-center space-x-10">
                   <MdEmojiEvents className="text-white" />
                   <span>Home</span>
                 </Link>
               </li>
               <li className="nav-link">
-                <Link to="calculator" className="flex items-center space-x-10">
+                <Link to="calculator" onClick={() => setToggleMenu(false)} className="flex items-center space-x-10">
                   <GrWorkshop className="text-white" />
                   <span>Calculator</span>
                 </Link>
               </li>
               <li className="nav-link">
-                <Link to="contact" className="flex items-center space-x-10">
+                <Link to="contact" onClick={() => setToggleMenu(false)} className="flex items-center space-x-10">
                   <RiContactsFill className="text-white" />
                   <span>Contact Us</span>
                 </Link>
               </li>
               <li className="nav-link">
-                <Link to="about" className="flex items-center space-x-10">
+                <Link to="about" onClick={() => setToggleMenu(false)} className="flex items-center space-x-10">
                   <FcAbout className="text-white" />
                   <span>About Us</span>
                 </Link>
@@ -145,6 +148,7 @@ const Home = () => {
           </button>
         </div>
       </div>
+
       {toggleMenu && <div className="mt-48"></div>}
       <Outlet />
     </>
