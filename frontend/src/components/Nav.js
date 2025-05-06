@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useMemo } from "react";
 import logo from "../images/logo.png";
 import { IoMenu } from "react-icons/io5";
 import { IoMdContact } from "react-icons/io";
@@ -12,19 +12,21 @@ import gsap from "gsap";
 const Home = () => {
   const [toggleMenu, setToggleMenu] = useState(false);
   const [showLogout, setShowLogout] = useState(false);
-
-  // Declare refs individually — not inside loops or callbacks
-  const ref0 = useRef(null);
-  const ref1 = useRef(null);
-  const ref2 = useRef(null);
-  const ref3 = useRef(null);
-  const ref4 = useRef(null);
-  const ref5 = useRef(null);
-  const ref6 = useRef(null);
   const inputRef = useRef(null);
-
-  const listRefs = [ref0, ref1, ref2, ref3, ref4, ref5, ref6];
   const navigate = useNavigate();
+
+  const listRefs = useMemo(
+    () => [
+      useRef(null),
+      useRef(null),
+      useRef(null),
+      useRef(null),
+      useRef(null),
+      useRef(null),
+      useRef(null),
+    ],
+    []
+  );
 
   useEffect(() => {
     const t1 = gsap.timeline();
@@ -44,7 +46,7 @@ const Home = () => {
       duration: 0.5,
       ease: "power2.in",
     });
-  }, []);
+  }, [listRefs]);
 
   const handleLogout = () => {
     setShowLogout(false);
@@ -57,29 +59,30 @@ const Home = () => {
         <img className="md:h-16 md:w-32 h-16 w-28" src={logo} alt="loading" />
         <nav className="hidden md:block">
           <ul className="flex gap-6">
-            <li ref={ref0} className="nav-link">
+            <li ref={listRefs[0]} className="nav-link">
               <Link to="/home">Home</Link>
             </li>
-            <li ref={ref1} className="nav-link">
+            <li ref={listRefs[1]} className="nav-link">
               <Link to="calculator">Calculator</Link>
             </li>
-            <li ref={ref2} className="nav-link">
+            <li ref={listRefs[2]} className="nav-link">
               <Link to="health">Health</Link>
             </li>
-            <li ref={ref3} className="nav-link">
+            <li ref={listRefs[3]} className="nav-link">
               <Link to="progress">Progress</Link>
             </li>
-            <li ref={ref4} className="nav-link">
+            <li ref={listRefs[4]} className="nav-link">
               <Link to="cart">Cart</Link>
             </li>
-            <li ref={ref5} className="nav-link">
+            <li ref={listRefs[5]} className="nav-link">
               <Link to="contact">Contact Us</Link>
             </li>
-            <li ref={ref6} className="nav-link">
+            <li ref={listRefs[6]} className="nav-link">
               <Link to="about">About Us</Link>
             </li>
           </ul>
         </nav>
+
         {toggleMenu && (
           <nav className="md:hidden block">
             <ul className="flex flex-col fixed h-52 overflow-auto w-full bg-black top-20 left-0 p-5 justify-between">
@@ -110,6 +113,7 @@ const Home = () => {
             </ul>
           </nav>
         )}
+
         <div className="flex md:gap-5 gap-3 items-center relative">
           <input
             ref={inputRef}
